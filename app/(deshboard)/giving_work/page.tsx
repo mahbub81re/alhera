@@ -1,6 +1,6 @@
 "use client"
 import axios from "axios";
-import { useEffect, useState } from "react"
+import { cache, useEffect, useState } from "react"
 
 type Work ={
     _id: string,
@@ -22,8 +22,8 @@ export default function GivingWork(){
     });
 
     async function geAllworks() {
-        const res=await axios.get("/api/given_work");
-        const data = res.data;
+        const res=await fetch("/api/given_work" );
+        const data =await res.json();
         if(data.success===true){
             setWorks(data.data);
         }else{
@@ -32,7 +32,7 @@ export default function GivingWork(){
     }
 
 async function deleteC(id:string){
-    const res = await axios.delete("/api/daily-work?class_type="+id);
+    const res = await axios.delete("/api/daily-work?class_type="+id );
     const data = res.data;
     if(data.success===true){
         geAllworks();
@@ -78,7 +78,7 @@ const handleInputChange = (event: any) => {
     <div>
              {works.map((t)=>{
                  return(<div key={t._id}>
-                         <div dangerouslySetInnerHTML={{ __html: t.content }} />
+                         <div dangerouslySetInnerHTML={{ __html: t.content }}  />
                           <div><button onClick={()=>deleteC(t.classType)}>Delete</button></div>
                       </div>)
                })}

@@ -31,3 +31,8 @@ body {
     text-wrap: balance;
   }
 }
+
+
+.red_text{
+  color: red;
+}

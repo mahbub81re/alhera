@@ -31,11 +31,12 @@ export default function Home() {
     },[])
 
     const getUser = async ()=>{
-      const res = await axios.get("/api/users");
-      if(res.data.success===true){
-        get_products_by_cat(res.data.data.class_type)
+      const res = await fetch("/api/users");
+      const data = await res.json();
+      if(data.success===true){
+        get_products_by_cat(data.data.class_type)
       }
-      setUser(res.data.data);
+      setUser(data.data);
     }
 
 
