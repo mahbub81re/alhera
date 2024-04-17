@@ -38,7 +38,7 @@ export default function Home() {
          </div>
       </div>
        <div className="w-full p-3">
-       <div className="w-full  m-3 p-3 mx-auto bg-slate-200 flex flex-row justify-start">
+       <div className="w-full  m-3 p-3 mx-auto bg-slate-200 dark:bg-slate-500 flex flex-row justify-start">
          <div>
           {user.gender!="" ? <Image src={user.gender==="female" ?"/female_avatar.jfif":"/male_avatar.jfif"} height={100} width={100} alt="Student"/>:<div className="w-[100px] h-[100px] flex flex-col justify-center text-gray-300"><div>Loading...</div></div>}
          </div>
@@ -58,7 +58,7 @@ export default function Home() {
       
 
        <div className="w-full p-3">
-       <div className="w-full  p-3 mx-auto bg-slate-200 flex flex-col justify-start">
+       <div className="w-full  p-3 mx-auto bg-slate-200 dark:bg-slate-500 flex flex-col justify-start">
           <div className=" border-b p-3 border-red-200 mb-2">{"Today's Work"}</div>
           <div>
               আজকে তোমাদের গণিতের ১.১ এর ১ম উদাহরণটি থাকলো ।
@@ -67,7 +67,7 @@ export default function Home() {
        </div>
 
        <div className="w-full p-3">
-       <div className="w-full  p-3 mx-auto bg-slate-200 flex flex-col justify-start">
+       <div className="w-full  p-3 mx-auto bg-slate-200 dark:bg-slate-500 flex flex-col justify-start">
           <div className=" border-b p-3 border-red-200 mb-2">Syllebus</div>
           <div>
              <div> <b>01/04/2024:</b> Math: 1.1 page:3 , English: Unit 1 lesson:2 Grammar: Tense</div>
