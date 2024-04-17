@@ -1,8 +1,31 @@
 "use client"
 import Image from "next/image";
-import { signOut } from "next-auth/react"
+import { signOut, useSession } from "next-auth/react"
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Home() {
+   const {data} = useSession();
+    const [user,setUser]= useState({
+      name:"",
+      email:"",
+      _id:"",
+      class_type:"",
+      payment_due:0,
+      payment_paid:0,
+      presents:[],
+      gender:"",
+    })
+
+    useEffect(()=>{
+      getUser()
+    },[])
+
+    const getUser = async ()=>{
+      const res = await axios.get("/api/users");
+      console.log(res.data)
+      setUser(res.data.data);
+    }
   return (
     <main className="flex min-h-screen flex-col items-center  ">
 
@@ -17,12 +40,15 @@ export default function Home() {
        <div className="w-full p-3">
        <div className="w-full  m-3 p-3 mx-auto bg-slate-200 flex flex-row justify-start">
          <div>
-          <Image src="/female_avatar.jfif" height={100} width={100} alt="Student"/>
+          {user.gender!="" ? <Image src={user.gender==="female" ?"/female_avatar.jfif":"/male_avatar.jfif"} height={100} width={100} alt="Student"/>:<div className="w-[100px] h-[100px] flex flex-col justify-center text-gray-300"><div>Loading...</div></div>}
          </div>
          <div className="h-full  items-center flex flex-col justify-center relative">
-           <div className="py-7 px-2 flex flex-col">
-            <span>Name : Khadija Akter</span>
-            <span>Class : 10</span>
+           <div className=" px-2 flex flex-col text-sm">
+            <span className="font-bold"> Name : {data?.user?.name}</span>
+            <span> Id : {data?.user?.email}</span>
+            <span> Class : {user.class_type}</span>
+            <span> Due : {user.payment_due}</span>
+            <span>Total Class : {user.presents.length}</span>
            </div>
           
          </div>

@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema({
     required: [true, "please provide a valid email"],
     unique: true,
   },
+  class_type:{
+    type:String,
+  },
   payment_due:{
      type:Number,
      default:0,
@@ -27,6 +30,10 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
   },
+  gender:{
+    type:String,
+    default:"female",
+  }
 });
 
 const Users = mongoose.models.User || mongoose.model("User", userSchema)
