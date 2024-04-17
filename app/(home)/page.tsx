@@ -4,6 +4,13 @@ import { signOut, useSession } from "next-auth/react"
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+type Work ={
+  _id: string,
+  classType: string,
+  content: string,
+  contenttype:string,
+}
+
 export default function Home() {
    const {data} = useSession();
     const [user,setUser]= useState({
@@ -17,15 +24,31 @@ export default function Home() {
       gender:"",
     })
 
+    const [todayworks, setTodayWork] = useState <Work[] | []>([]);
+
     useEffect(()=>{
       getUser()
     },[])
 
     const getUser = async ()=>{
       const res = await axios.get("/api/users");
-      console.log(res.data)
+      if(res.data.success===true){
+        get_products_by_cat(res.data.data.class_type)
+      }
       setUser(res.data.data);
     }
+
+
+    async function get_products_by_cat(id:string){
+      const res = await fetch("/api/daily-work?class_type="+id);
+      const data = await res.json();
+      if(data.success===false){
+       console.log(data);
+      }else{
+       setTodayWork(data.data)
+      }
+    }
+  
   return (
     <main className="flex min-h-screen flex-col items-center  ">
 
@@ -61,7 +84,11 @@ export default function Home() {
        <div className="w-full  p-3 mx-auto bg-slate-200 dark:bg-slate-500 flex flex-col justify-start">
           <div className=" border-b p-3 border-red-200 mb-2">{"Today's Work"}</div>
           <div>
-              আজকে তোমাদের গণিতের ১.১ এর ১ম উদাহরণটি থাকলো ।
+               {todayworks.map((t)=>{
+                 return(<div key={t._id}>
+                         <div dangerouslySetInnerHTML={{ __html: t.content }} />
+                      </div>)
+               })}
           </div>
       </div> 
        </div>
