@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center  ">
 
-      <div className="w-full h-[60px] bg-white flex flex-row  justify-between">
+      {/* <div className="w-full h-[60px] bg-white flex flex-row  justify-between">
          <div className="">
             <Image src='/logo.png' height={40} width={160} alt="ff"/>
          </div>
@@ -47,7 +47,7 @@ export default function Home() {
              <div> <b>01/04/2024:</b> Math: 1.1 page:3 , English: Unit 1 lesson:2 Grammar: Tense</div>
           </div>
       </div> 
-       </div>
+       </div> */}
 
     </main>
   );
