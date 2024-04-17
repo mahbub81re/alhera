@@ -21,7 +21,9 @@ const userSchema = new mongoose.Schema({
   presents:{
     type:Array,
   },
-  phone:String,
+  phone:{
+    type: String,
+  },
   password: {
     type: String,
   },
