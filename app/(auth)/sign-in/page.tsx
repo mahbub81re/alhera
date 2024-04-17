@@ -133,13 +133,7 @@ export default function SignInPage(){
                   <div className="border-b border-gray-800 py-2 w-full px-6" />
                 </div>
                 <div className="text-lg text-slate-900 font-medium">
-                  <span>Dont have an account?</span>
-                  <a
-                    href="/sign-up"
-                    className="text-[#5D7DF3] pl-3 hover:underline"
-                  >
-                    Create an account
-                  </a>
+                
                 </div>
               </div>
             </form>

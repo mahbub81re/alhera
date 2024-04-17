@@ -8,19 +8,21 @@ type Student ={
     email:String,
     payment_due:number,
     payment_paid:number,
+    class_type:string,
     presents:[String],
     phone:String,
   } 
 
 export default  function AllStudents(){
 
-    const [students, setStudents]= useState<Student[] | []>([])
+    const [students, setStudents]= useState<Student[] | []>([]);
+    const [cFilter , setCFilter] =useState("no");
     useEffect(()=>{
        getStudents()
     },[])
 
     async function getStudents(){
-        const res =await fetch("/api/students",{cache:"reload"});
+        const res =await fetch("/api/students",{cache:"no-cache"});
         const data = await res.json();
         if(data.success===false){
          //toast.error("Network Problem! please reload the page or check your connection");
@@ -30,22 +32,43 @@ export default  function AllStudents(){
           console.log(students)
         }
     }
-    
+     let i =0;
     return(
         <main>
               <div className="">
-                <div>Table head</div>
+                <div>Table head <select   value={cFilter}  onChange={(e)=>setCFilter(e.target.value)} ><option value="no"  >No</option><option value="10" selected >Ten</option><option value="9" selected >Nine</option></select></div>
                 <div>
                     {students.map((student:Student , index)=>{
+                        i+=1;
                        return(
-                       <div className="flex flex-row justify-around" key={index}>
-                           <span>{student.name}</span>
-                           <span>{student.email}</span>
-                           <span>{student.payment_due}</span>
-                           <span>{student.payment_paid}</span>
-                           <span>{student.phone}</span>
-                           <span>{student.presents.length}</span>
-                           <span><button>Edit</button></span>
+                       <div  key={index}>
+                          <table className="w-[800px] text-left">
+                            {
+                            
+                            cFilter ==="no" && <tr>
+                                <td className="w-[25px]">{i}</td>
+                                <td className="w-[170px]">{student.name}</td>
+                                <td className="w-[200px]">{student.email}</td>
+                                <td className="w-[40px]">{student.payment_due}</td>
+                                <td className="w-[40px]">{student.payment_paid}</td>
+                                <td className="w-[40px]">{student.phone}</td>
+                                <td className="w-[40px]">{student.presents.length}</td>
+                                <td ><button>Edit</button></td>
+                           </tr>
+                           }
+
+                        {cFilter !="no" && cFilter === student.class_type && <tr>
+                                <td className="w-[25px]">{i}</td>
+                                <td className="w-[170px]">{student.name}</td>
+                                <td className="w-[200px]">{student.email}</td>
+                                <td className="w-[40px]">{student.payment_due}</td>
+                                <td className="w-[40px]">{student.payment_paid}</td>
+                                <td className="w-[40px]">{student.phone}</td>
+                                <td className="w-[40px]">{student.presents.length}</td>
+                                <td ><button>Edit</button></td>
+                           </tr>
+                           }
+                           </table>
                        </div>)
                     })}
                 </div>
