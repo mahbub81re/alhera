@@ -10,14 +10,18 @@ const userSchema = new mongoose.Schema({
     required: [true, "please provide a valid email"],
     unique: true,
   },
-  google_id:{
-    type:String,
-    unique:true
+  payment_due:{
+     type:Number,
+     default:0,
   },
-  role:{
-    type:String,
-    default:"user"
+  payment_paid:{
+    type:Number,
+    default:0,
   },
+  presents:{
+    type:Array,
+  },
+  phone:String,
   password: {
     type: String,
   },
