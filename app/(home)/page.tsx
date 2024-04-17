@@ -33,7 +33,7 @@ export default function Home() {
 
        <div className="w-full p-3">
        <div className="w-full  p-3 mx-auto bg-slate-200 flex flex-col justify-start">
-          <div className=" border-b p-3 border-red-200 mb-2">Today's Work</div>
+          <div className=" border-b p-3 border-red-200 mb-2">{"Today's Work"}</div>
           <div>
               আজকে তোমাদের গণিতের ১.১ এর ১ম উদাহরণটি থাকলো ।
           </div>
