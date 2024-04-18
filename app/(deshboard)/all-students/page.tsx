@@ -1,6 +1,5 @@
 "use client"
 
-import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 type Student ={
@@ -18,8 +17,9 @@ export default  function AllStudents(){
 
     const [students, setStudents]= useState<Student[] | []>([]);
     const [cFilter , setCFilter] =useState("no");
+
     useEffect(()=>{
-       getStudents()
+       getStudents();
     },[])
 
     async function getStudents(){

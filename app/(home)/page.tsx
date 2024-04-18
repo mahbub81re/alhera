@@ -43,13 +43,15 @@ export default function Home() {
       const res = await fetch("/api/users",{cache:"reload"});
       const data = await res.json();
       if(data.success===true){
+        setUser(data.data);
         get_products_by_cat(data.data.class_type)
         get_syllebus_by_c_type(data.data.class_type)
       }
-      setUser(data.data);
+      
     }
 
 
+   
     async function get_products_by_cat(id:string){
       const res = await fetch("/api/daily-work?class_type="+id,{cache:"reload"});
       const data = await res.json();

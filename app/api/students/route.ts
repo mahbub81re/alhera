@@ -7,7 +7,7 @@ import Users from "@/models/User";
 
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req:NextRequest){
+export async function GET(){
     try{
       connectDB() 
       const  res =await Users.find({});
@@ -17,6 +17,6 @@ export async function GET(req:NextRequest){
         return NextResponse.json({success:false, status:401,message:"No Category founded"})
        }
     }catch(err){
-        NextResponse.json({success:false, status:402,message:"Someting is wrong!"})
+        return NextResponse.json({success:false, status:402,message:"Someting is wrong!"})
     }
 }

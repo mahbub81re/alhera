@@ -58,7 +58,6 @@ const handleInputChange = (event: any) => {
         return;
       }
       // KhaDiJa12
-      console.log("fetching...")
       const res = await axios.post("/api/daily-work", neww);
         
       if (res.status == 200 || res.status == 201) {
