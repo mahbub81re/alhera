@@ -23,8 +23,8 @@ export default function GivingWork(){
     });
 
     async function geAllworks() {
-        const res=await axios.get("/api/given_work");
-        const data =await res.data;
+        const res=await fetch("/api/given_work",{cache:"reload"});
+        const data =await res.json();
         if(data.success===true){
             setWorks(data.data);
         }else{

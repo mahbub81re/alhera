@@ -25,8 +25,8 @@ export default function SyllebusMake(){
     });
 
     async function geAllworks() {
-        const res=await axios.get("/api/syllebus");
-        const data =await res.data;
+        const res=await fetch("/api/syllebus",{cache:"reload"});
+        const data =await res.json();
         if(data.success===true){
             setWorks(data.data);
         }else{
@@ -83,8 +83,7 @@ const handleInputChange = (event: any) => {
              {works.map((t)=>{
                 const time: Date = new Date(t.date);
                 const current: Date =new Date();
-                console.log(current.getDate())
-                console.log(time.getDate())
+
                  return(<div className="m-3 p-2 border border-red-700" key={t._id}>
                          <b >{time.getDate()==current.getDate()?"Today":time.getDate()+"-"+time.getMonth()+"-"+time.getFullYear()}</b>
                          <div dangerouslySetInnerHTML={{ __html: t.content }}  />

@@ -23,8 +23,8 @@ export default  function AllStudents(){
     },[])
 
     async function getStudents(){
-        const res =await axios.get("/api/students");
-        const data = await res.data;
+        const res =await fetch("/api/students",{cache:"reload"});
+        const data = await res.json();
         if(data.success===false){
          //toast.error("Network Problem! please reload the page or check your connection");
          console.log("error")
