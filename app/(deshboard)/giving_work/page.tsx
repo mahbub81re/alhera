@@ -12,6 +12,8 @@ type Work ={
 
 export default function GivingWork(){
     const [works,setWorks]= useState <Work[] | []>([]);
+    const [dloadibg,setDLoading]=useState(false);
+    const [actionloadibg,setActionLoading]=useState(false);
     useEffect(()=>{
         geAllworks()
     },[]);
@@ -23,6 +25,7 @@ export default function GivingWork(){
     });
 
     async function geAllworks() {
+        setDLoading(true)
         const res=await fetch("/api/given_work",{cache:"reload"});
         const data =await res.json();
         if(data.success===true){
@@ -30,9 +33,11 @@ export default function GivingWork(){
         }else{
             console.log(data)
         }
+        setDLoading(false)
     }
 
 async function deleteC(id:string){
+    setActionLoading(true)
     const res = await axios.delete("/api/daily-work?class_type="+id );
     const data = res.data;
     if(data.success===true){
@@ -40,6 +45,7 @@ async function deleteC(id:string){
     }else{
         console.log(data)
     }
+    setActionLoading(false)
 }
 
 
@@ -52,6 +58,7 @@ const handleInputChange = (event: any) => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setActionLoading(true)
     try {
       if (!neww.classType || !neww.content || !neww.contenttype) {
         console.log("please fill all the fields");
@@ -71,11 +78,11 @@ const handleInputChange = (event: any) => {
   }catch(err){
 
   }
-
+  setActionLoading(false)
 }
 
     return (
-    <div>
+    <div> {dloadibg && "Data is Loading..."} {actionloadibg && "Action is Loading..."}
              {works.map((t)=>{
                 const time: Date = new Date(t.createdAt);
                 const current: Date =new Date();
