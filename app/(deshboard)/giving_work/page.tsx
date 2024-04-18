@@ -16,7 +16,7 @@ export default function GivingWork(){
     const [actionloadibg,setActionLoading]=useState(false);
     useEffect(()=>{
         geAllworks()
-    },[geAllworks]);
+    },[]);
 
     const [neww , seNeww] = useState({
         classType: "",
@@ -30,6 +30,7 @@ export default function GivingWork(){
         const data =await res.json();
         if(data.success===true){
             setWorks(data.data);
+            console.log(data.data)
         }else{
             console.log(data)
         }
