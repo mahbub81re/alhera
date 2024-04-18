@@ -26,7 +26,7 @@ export default function GivingWork(){
 
     async function geAllworks() {
         setDLoading(true)
-        const res=await fetch("/api/given_work",{cache:"reload"});
+        const res=await fetch("/api/given_work",{cache:"reload",method:"GET"});
         const data =await res.json();
         if(data.success===true){
             setWorks(data.data);

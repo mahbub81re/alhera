@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
     export async function GET(){
         try {
             connectDB()
-            const  res =await  DailyWork.find({}).sort('-createdAt');
+            const  res =await  DailyWork.find({}).sort('createdAt');
             if(res){
                 return NextResponse.json({success:true,status:200,data:res});
             }else{
