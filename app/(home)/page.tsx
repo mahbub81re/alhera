@@ -40,9 +40,7 @@ export default function Home() {
     },[])
 
     const getUser = async ()=>{
-      const res = await fetch("/api/users", {next:{
-        revalidate:0
-    }});
+      const res = await fetch("/api/users");
       const data = await res.json();
       if(data.success===true){
         get_products_by_cat(data.data.class_type)
@@ -53,8 +51,8 @@ export default function Home() {
 
 
     async function get_products_by_cat(id:string){
-      const res = await fetch("/api/daily-work?class_type="+id, {cache:"no-store"});
-      const data = await res.json();
+      const res = await axios.get("/api/daily-work?class_type="+id);
+      const data = await res.data;
       if(data.success===false){
        console.log(data);
       }else{
@@ -63,12 +61,12 @@ export default function Home() {
     }
 
     async function get_syllebus_by_c_type(id:string){
-      const res = await fetch("/api/syllebus?class_type="+id, {cache:"no-store"});
-      const data = await res.json();
-      if(data.success===false){
+      const data = await axios.get("/api/syllebus?class_type="+id);
+      const d= await data.data
+      if(d.success===false){
        console.log(data);
       }else{
-        setSyllebus(data.data)
+        setSyllebus(d.data)
       }
     }
   

@@ -25,8 +25,8 @@ export default function SyllebusMake(){
     });
 
     async function geAllworks() {
-        const res=await fetch("/api/syllebus", {cache:"no-store"});
-        const data =await res.json();
+        const res=await axios.get("/api/syllebus");
+        const data =await res.data;
         if(data.success===true){
             setWorks(data.data);
         }else{

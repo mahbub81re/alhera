@@ -1,5 +1,6 @@
 "use client"
 
+import axios from "axios";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 type Student ={
@@ -22,8 +23,8 @@ export default  function AllStudents(){
     },[])
 
     async function getStudents(){
-        const res =await fetch("/api/students", {cache:"no-store"});
-        const data = await res.json();
+        const res =await axios.get("/api/students");
+        const data = await res.data;
         if(data.success===false){
          //toast.error("Network Problem! please reload the page or check your connection");
          console.log("error")
