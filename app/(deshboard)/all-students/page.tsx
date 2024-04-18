@@ -22,7 +22,9 @@ export default  function AllStudents(){
     },[])
 
     async function getStudents(){
-        const res =await fetch("/api/students",{cache:"no-store"} );
+        const res =await fetch("/api/students", {next:{
+          revalidate:0
+      }});
         const data = await res.json();
         if(data.success===false){
          //toast.error("Network Problem! please reload the page or check your connection");
