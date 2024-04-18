@@ -20,7 +20,7 @@ export default  function AllStudents(){
 
     useEffect(()=>{
        getStudents();
-    },[])
+    },[getStudents])
 
     async function getStudents(){
         const res =await fetch("/api/students",{cache:"reload"});

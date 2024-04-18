@@ -37,7 +37,7 @@ export default function Home() {
 
     useEffect(()=>{
       getUser()
-    },[])
+  },[]);
 
     const getUser = async ()=>{
       const res = await fetch("/api/users",{cache:"reload"});

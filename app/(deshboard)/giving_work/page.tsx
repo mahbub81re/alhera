@@ -16,7 +16,7 @@ export default function GivingWork(){
     const [actionloadibg,setActionLoading]=useState(false);
     useEffect(()=>{
         geAllworks()
-    },[]);
+    },[geAllworks]);
 
     const [neww , seNeww] = useState({
         classType: "",

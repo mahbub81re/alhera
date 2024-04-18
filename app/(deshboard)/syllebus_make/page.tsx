@@ -15,7 +15,7 @@ export default function SyllebusMake(){
     const [works,setWorks]= useState <Work[] | []>([]);
     useEffect(()=>{
         geAllworks()
-    },[]);
+    },[geAllworks]);
 
     const [neww , seNeww] = useState({
         classType: "",
