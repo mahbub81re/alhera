@@ -3,8 +3,7 @@
 //"http://localhost:3000/api/common/categories/all_cat"
 
 import connectDB from "@/libs/dtb";
-import DailyWork from "@/models/DailyWork";
-import Users from "@/models/User";
+import Syllebus from "@/models/Syllebua";
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -14,7 +13,7 @@ export async function GET(req:NextRequest){
     
     try{
       connectDB() 
-      const  res =await DailyWork.find({classType:id}).sort('-createdAt');;
+      const  res =await Syllebus.find({classType:id}).sort('-date');
        if(res){
         console.log(res)
         return  NextResponse.json({success:true, status:200, data:res})
@@ -27,13 +26,20 @@ export async function GET(req:NextRequest){
 }
 
 export async function POST(req:NextRequest){
-    const data =await req.json();
-  console.log(data)
+    const {  classType,
+    content,
+    contenttype, 
+    date } =await req.json();
     try{
             connectDB();
 
-            const res =  await DailyWork.create(data);
+            const res =  await Syllebus.create({classType,
+                content,
+                contenttype, 
+                date:  new Date(date + "T00:00:00")});
+
             if(res){
+                console.log(res)
                 return NextResponse.json({success:true,status:200,data:res})
             }else{
                 return NextResponse.json({success:false,status:402,message:"Did not Found Order"})
@@ -52,7 +58,7 @@ export async function DELETE(req:NextRequest){
     try{
             connectDB();
 
-            const  res =await DailyWork.findByIdAndDelete(id);
+            const  res =await Syllebus.findByIdAndDelete(id);
             if(res){
                 return NextResponse.json({success:true,status:200,data:res})
             }else{

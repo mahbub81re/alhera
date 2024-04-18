@@ -11,7 +11,14 @@ type Work ={
   contenttype:string,
   createdAt:Date,
 }
-
+type Syllebus= {
+  _id: string,
+  classType: string,
+  content: string,
+  contenttype:string,
+  date:Date,
+  createdAt:Date,
+}
 export default function Home() {
    const {data} = useSession();
     const [user,setUser]= useState({
@@ -26,6 +33,7 @@ export default function Home() {
     })
 
     const [todayworks, setTodayWork] = useState <Work[] | []>([]);
+    const [syllebus, setSyllebus] = useState <Syllebus[] | []>([]);
 
     useEffect(()=>{
       getUser()
@@ -36,6 +44,7 @@ export default function Home() {
       const data = await res.json();
       if(data.success===true){
         get_products_by_cat(data.data.class_type)
+        get_syllebus_by_c_type(data.data.class_type)
       }
       setUser(data.data);
     }
@@ -48,6 +57,16 @@ export default function Home() {
        console.log(data);
       }else{
        setTodayWork(data.data)
+      }
+    }
+
+    async function get_syllebus_by_c_type(id:string){
+      const res = await fetch("/api/syllebus?class_type="+id);
+      const data = await res.json();
+      if(data.success===false){
+       console.log(data);
+      }else{
+        setSyllebus(data.data)
       }
     }
   
@@ -89,9 +108,11 @@ export default function Home() {
                {todayworks.map((t)=>{
                    const time: Date = new Date(t.createdAt);
                    const current: Date =new Date();
+                   
                  return(<div key={t._id}>
-                      <b >{time.getDate()===current.getDate()?"Today":time.toString()}</b>
-                         <div dangerouslySetInnerHTML={{ __html: t.content }} />
+                      <b >{time.getDate()===current.getDate()?"Today":time.getDay()+"-"+time.getMonth()+"-"+time.getFullYear()}</b>
+                     
+                        {t.contenttype==="text" && <div dangerouslySetInnerHTML={{ __html: t.content }} />} 
                       </div>)
                })}
           </div>
@@ -102,7 +123,16 @@ export default function Home() {
        <div className="w-full  p-3 mx-auto bg-slate-200 dark:bg-slate-500 flex flex-col justify-start">
           <div className=" border-b p-3 border-red-200 mb-2">Syllebus</div>
           <div>
-             <div> <b>01/04/2024:</b> Math: 1.1 page:3 , English: Unit 1 lesson:2 Grammar: Tense</div>
+          {syllebus.map((t)=>{
+                   const time: Date = new Date(t.date);
+                   const current: Date =new Date();
+                   
+                 return(<div key={t._id}>
+                      <b >{time.getDate()===current.getDate()?"Today":time.getDate()+"-"+time.getMonth()+"-"+time.getFullYear()}</b>
+                     
+                        {t.contenttype==="text" && <div dangerouslySetInnerHTML={{ __html: t.content }} />} 
+                      </div>)
+               })}
           </div>
       </div> 
        </div>
