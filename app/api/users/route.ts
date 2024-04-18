@@ -26,6 +26,6 @@ export async function GET(req:NextRequest){
         return NextResponse.json({success:false, status:401,message:"No Category founded"})
        }
     }catch(err){
-        NextResponse.json({success:false, status:402,message:"Someting is wrong!"})
+        return NextResponse.json({success:false, status:402,message:"Someting is wrong!"})
     }
 }

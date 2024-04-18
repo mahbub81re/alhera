@@ -4,7 +4,6 @@
 
 import connectDB from "@/libs/dtb";
 import DailyWork from "@/models/DailyWork";
-import Users from "@/models/User";
 
 import { NextRequest, NextResponse } from "next/server";
 
@@ -16,7 +15,6 @@ export async function GET(req:NextRequest){
       connectDB() 
       const  res =await DailyWork.find({classType:id}).sort('-createdAt');;
        if(res){
-        console.log(res)
         return  NextResponse.json({success:true, status:200, data:res})
        }else{
         return NextResponse.json({success:false, status:401,message:"No Category founded"})
