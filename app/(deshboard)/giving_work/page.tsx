@@ -23,9 +23,7 @@ export default function GivingWork(){
     });
 
     async function geAllworks() {
-        const res=await fetch("/api/given_work" , {next:{
-            revalidate:0
-        }});
+        const res=await fetch("/api/given_work" , {cache:"no-store"});
         const data =await res.json();
         if(data.success===true){
             setWorks(data.data);

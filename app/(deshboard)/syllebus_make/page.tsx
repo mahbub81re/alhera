@@ -25,9 +25,7 @@ export default function SyllebusMake(){
     });
 
     async function geAllworks() {
-        const res=await fetch("/api/syllebus", {next:{
-            revalidate:0
-        }});
+        const res=await fetch("/api/syllebus", {cache:"no-store"});
         const data =await res.json();
         if(data.success===true){
             setWorks(data.data);

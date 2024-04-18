@@ -53,9 +53,7 @@ export default function Home() {
 
 
     async function get_products_by_cat(id:string){
-      const res = await fetch("/api/daily-work?class_type="+id, {next:{
-        revalidate:0
-    }});
+      const res = await fetch("/api/daily-work?class_type="+id, {cache:"no-store"});
       const data = await res.json();
       if(data.success===false){
        console.log(data);
@@ -65,9 +63,7 @@ export default function Home() {
     }
 
     async function get_syllebus_by_c_type(id:string){
-      const res = await fetch("/api/syllebus?class_type="+id, {next:{
-        revalidate:0
-    }});
+      const res = await fetch("/api/syllebus?class_type="+id, {cache:"no-store"});
       const data = await res.json();
       if(data.success===false){
        console.log(data);
