@@ -52,7 +52,7 @@ export async function DELETE(req:NextRequest){
     try{
             connectDB();
 
-            const  res =await DailyWork.deleteMany({classType:id});
+            const  res =await DailyWork.findByIdAndDelete(id);
             if(res){
                 return NextResponse.json({success:true,status:200,data:res})
             }else{

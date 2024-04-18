@@ -7,6 +7,7 @@ type Work ={
     classType: string,
     content: string,
     contenttype:string,
+    createdAt:Date ,
   }
 
 export default function GivingWork(){
@@ -18,7 +19,7 @@ export default function GivingWork(){
     const [neww , seNeww] = useState({
         classType: "",
         content: "",
-        contenttype:"",
+        contenttype:"text",
     });
 
     async function geAllworks() {
@@ -77,9 +78,12 @@ const handleInputChange = (event: any) => {
     return (
     <div>
              {works.map((t)=>{
-                 return(<div key={t._id}>
+                const time: Date = new Date(t.createdAt);
+                const current: Date =new Date();
+                 return(<div className="m-3 p-2 border border-red-700" key={t._id}>
+                         <b >{time.getDate()===current.getDate()?"Today":time.toString()}</b>
                          <div dangerouslySetInnerHTML={{ __html: t.content }}  />
-                          <div><button onClick={()=>deleteC(t.classType)}>Delete</button></div>
+                          <div><button className="p-1 bg-red-600 text-white rounded-md" onClick={()=>deleteC(t._id)}>Delete</button></div>
                       </div>)
                })}
       <div>

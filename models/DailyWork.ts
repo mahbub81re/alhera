@@ -12,7 +12,8 @@ const DailyWorkSchema = new mongoose.Schema({
   contenttype:{
     type:String,
   },
-});
+  
+},{timestamps : true});
 
 const DailyWork = mongoose.models.DailyWork || mongoose.model("DailyWork", DailyWorkSchema)
 

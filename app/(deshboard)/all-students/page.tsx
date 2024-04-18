@@ -41,7 +41,7 @@ export default  function AllStudents(){
                     {students.map((student:Student , index)=>{
                         i+=1;
                        return(
-                       <div  key={index}>
+                       <div  key={index} className="m-3">
                           <table className="w-[800px] text-left">
                             {
                             

@@ -9,6 +9,7 @@ type Work ={
   classType: string,
   content: string,
   contenttype:string,
+  createdAt:Date,
 }
 
 export default function Home() {
@@ -83,10 +84,13 @@ export default function Home() {
 
        <div className="w-full p-3">
        <div className="w-full  p-3 mx-auto bg-slate-200 dark:bg-slate-500 flex flex-col justify-start">
-          <div className=" border-b p-3 border-red-200 mb-2">{"Today's Work"}</div>
+          <div className=" border-b p-3 border-red-200 mb-2">{"Home Work"}</div>
           <div>
                {todayworks.map((t)=>{
+                   const time: Date = new Date(t.createdAt);
+                   const current: Date =new Date();
                  return(<div key={t._id}>
+                      <b >{time.getDate()===current.getDate()?"Today":time.toString()}</b>
                          <div dangerouslySetInnerHTML={{ __html: t.content }} />
                       </div>)
                })}
