@@ -11,25 +11,22 @@ type Syllebus= {
     createdAt:Date,
   }
   
-  async function getSyllebus(){
-    const res = await fetch("/api/syllebus",{cache:"reload"});
-    const data =await res.json();
-    return data.data;
-    
-  }
+  
 
 export default  function Syllebus(){
 
 const [syllebuses, setSyll] = useState<Syllebus[]|[]>([])
 
 useEffect(()=>{
-  getsylle()
+  getSyllebus()
 },[])
-  async function getsylle(){
-    const sykke:Syllebus[] = await getSyllebus();
-    setSyll(sykke)
-     }
 
+async function getSyllebus(){
+  const res = await fetch("/api/syllebus",{cache:"no-store"});
+  const data =await res.json();
+  setSyll(data.data) ;
+  
+}
     return(
         <div className="w-full p-3">
         <div className="w-full  p-3 mx-auto bg-slate-200 dark:bg-slate-500 flex flex-col justify-start">

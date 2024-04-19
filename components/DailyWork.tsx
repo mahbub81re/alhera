@@ -1,5 +1,5 @@
-"use client"
 
+import { getDailyWork } from "@/libs/allAction";
 import { useEffect, useState } from "react";
 
 type Work ={
@@ -9,30 +9,26 @@ type Work ={
     contenttype:string,
     createdAt:Date,
   }
-    async function getDailyWork() {
-        const res = await fetch("/api/daily-work",{cache:"reload"});
-        const data =await res.json();
-        return data.data;
-      }
+    
+export default   function DailyWork(){
+        const [dailyworks,setD]=useState<Work[]|[]>([])
+     useEffect(()=>{
+      getDailyWork()
+     },[])
 
-export default  function DailyWork(){
-  const [dailyworks,setD]=useState<Work[] | [] >([])
-  useEffect(()=>{
-    getWork()
-  },[])
-
-  async function getWork(){
-    const works:Work[] = await getDailyWork();
-    setD(works);
-  }
-
-     // const dailyworks:Work[] = await getDailyWork(id);
-
+      async function getDailyWork() {
+      const res = await fetch("/api/daily-work",{cache:"no-store"});
+      const data =await res.json();
+      if(data.success===true)setD(data.data);
+      
+    }
+  
+      
     return(
         <>
            <div className=" border-b p-3 border-red-200 mb-2">{"Home Work"}</div>
            <div>
-                {dailyworks.map((t)=>{
+                {dailyworks.map((t:Work)=>{
                     const time: Date = new Date(t.createdAt);
                     const current: Date =new Date();
                     
