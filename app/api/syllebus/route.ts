@@ -4,6 +4,7 @@ import Syllebus from "@/models/Syllebua";
 import { NextResponse } from "next/server";
 
     export async function GET(){
+        
         try {
             connectDB()
             const  res =await  Syllebus.find({}).sort('-createdAt');

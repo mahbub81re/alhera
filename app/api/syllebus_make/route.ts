@@ -4,16 +4,20 @@
 
 import connectDB from "@/libs/dtb";
 import Syllebus from "@/models/Syllebua";
+import Users from "@/models/User";
+import { getToken } from "next-auth/jwt";
 
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req:NextRequest){
-    const { searchParams } = new URL(req.url);
-    const id = searchParams.get('class_type');
-    
+    const token =await getToken({
+        req,
+        secret:process.env.NEXTAUTH_SECRET
+    })
     try{
       connectDB() 
-      const  res =await Syllebus.find({classType:id}).sort('-date');
+      const user = await Users.findOne({email:token?.email})
+      const  res =await Syllebus.find({classType:user.class_type}).sort('-date');
        if(res){
         console.log(res)
         return  NextResponse.json({success:true, status:200, data:res})

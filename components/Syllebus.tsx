@@ -1,3 +1,7 @@
+"use client"
+
+import { useEffect, useState } from "react";
+
 type Syllebus= {
     _id: string,
     classType: string,
@@ -7,16 +11,24 @@ type Syllebus= {
     createdAt:Date,
   }
   
-  async function getSyllebus(id:string){
-    const res = await fetch("http://localhost:3000/api/syllebus?class_type="+id,{cache:"reload"});
+  async function getSyllebus(){
+    const res = await fetch("http://localhost:3000/api/syllebus",{cache:"reload"});
     const data =await res.json();
     return data.data;
     
   }
 
-export default async function Syllebus({id}:{id:string}){
+export default  function Syllebus(){
 
-    const syllebuses:Syllebus[] = await getSyllebus(id)
+const [syllebuses, setSyll] = useState<Syllebus[]|[]>([])
+
+useEffect(()=>{
+  getsylle()
+},[])
+  async function getsylle(){
+    const sykke:Syllebus[] = await getSyllebus();
+    setSyll(sykke)
+     }
 
     return(
         <div className="w-full p-3">

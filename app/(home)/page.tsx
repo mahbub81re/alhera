@@ -1,7 +1,7 @@
 "use client"
 import DailyWork from "@/components/DailyWork";
 import Syllebus from "@/components/Syllebus";
-import { signOut  } from "next-auth/react";
+import { signOut, useSession  } from "next-auth/react";
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -15,18 +15,18 @@ const [loading, setLoading]=useState(false)
   name:"",
   email:"",
   _id:"",
-  class_type:"",
+  class_type:"10",
   payment_due:0,
   payment_paid:0,
   presents:[],
   gender:"",
  });
-  
+
   useEffect(()=>{
     getUser()
-  },[0])
+  },[])
 
-  const getUser = async ()=>{
+  async function getUser(){
     setLoading(true)
     const res = await fetch("http://localhost:3000/api/users");
     const data =await res.json();
@@ -72,12 +72,12 @@ const [loading, setLoading]=useState(false)
         
        <div className="w-full p-3">
         <div className="w-full  p-3 mx-auto bg-slate-200 dark:bg-slate-500 flex flex-col justify-start">
-        {loading ?"Loading..":  <DailyWork id={user.class_type}/>}
+        <DailyWork />
           </div>
           </div>
           <div className="w-full p-3">
         <div className="w-full  p-3 mx-auto bg-slate-200 dark:bg-slate-500 flex flex-col justify-start">
-        {loading ?"Loading..": <Syllebus id={user.class_type}/>}
+        <Syllebus />
          </div>
         </div>
       

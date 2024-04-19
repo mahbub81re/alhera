@@ -1,3 +1,7 @@
+"use client"
+
+import { useEffect, useState } from "react";
+
 type Work ={
     _id: string,
     classType: string,
@@ -5,15 +9,24 @@ type Work ={
     contenttype:string,
     createdAt:Date,
   }
-    async function getDailyWork(id: string) {
-        const res = await fetch("http://localhost:3000/api/daily-work?class_type="+id,{cache:"reload"});
+    async function getDailyWork() {
+        const res = await fetch("http://localhost:3000/api/daily-work",{cache:"reload"});
         const data =await res.json();
         return data.data;
       }
 
-export default async function DailyWork({id}:{id:string}){
+export default  function DailyWork(){
+  const [dailyworks,setD]=useState<Work[] | [] >([])
+  useEffect(()=>{
+    getWork()
+  },[])
 
-      const dailyworks:Work[] = await getDailyWork(id);
+  async function getWork(){
+    const works:Work[] = await getDailyWork();
+    setD(works);
+  }
+
+     // const dailyworks:Work[] = await getDailyWork(id);
 
     return(
         <>
