@@ -33,7 +33,7 @@ useEffect(()=>{
     return(
         <div className="w-full p-3">
         <div className="w-full  p-3 mx-auto bg-slate-200 dark:bg-slate-500 flex flex-col justify-start">
-           <div className=" border-b p-3 border-red-200 mb-2">Syllebus</div>
+           <div className=" border-b p-3 border-red-400 mb-2">Syllebus</div>
            <div>
            {syllebuses.map((t)=>{
                     const time: Date = new Date(t.date);

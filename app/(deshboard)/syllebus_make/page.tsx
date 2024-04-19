@@ -14,7 +14,7 @@ type Work ={
 export default function SyllebusMake(){
     const [works,setWorks]= useState <Work[] | []>([]);
     useEffect(()=>{
-        geAllworks()
+        syllebus()
     },[]);
 
     const [neww , seNeww] = useState({
@@ -24,8 +24,8 @@ export default function SyllebusMake(){
         date:"",
     });
 
-    async function geAllworks() {
-        const res=await fetch("/api/syllebus",{cache:"reload"});
+    async function syllebus() {
+        const res=await fetch("/api/syllebus",{cache:"reload",method:"GET"});
         const data =await res.json();
         if(data.success===true){
             setWorks(data.data);
@@ -38,7 +38,7 @@ async function deleteC(id:string){
     const res = await axios.delete("/api/syllebus_make?class_type="+id );
     const data = res.data;
     if(data.success===true){
-        geAllworks();
+        syllebus();
     }else{
         console.log(data)
     }
@@ -64,7 +64,7 @@ const handleInputChange = (event: any) => {
       const res = await axios.post("/api/syllebus_make", neww);
         
       if (res.status == 200 || res.status == 201) {
-           geAllworks()
+        syllebus()
             seNeww({
                 classType: "",
                 content: "",

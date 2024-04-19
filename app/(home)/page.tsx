@@ -75,7 +75,7 @@ const [loading, setLoading]=useState(false)
         <DailyWork />
           </div>
           </div>
-          <div className="w-full p-3">
+      <div className="w-full p-3">
         <div className="w-full  p-3 mx-auto bg-slate-200 dark:bg-slate-500 flex flex-col justify-start">
         <Syllebus />
          </div>
