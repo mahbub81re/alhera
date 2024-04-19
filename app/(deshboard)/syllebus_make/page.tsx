@@ -25,10 +25,10 @@ export default function SyllebusMake(){
     });
 
     async function syllebus() {
-        const res=await fetch("/api/syllebus",{cache:"reload",method:"GET"});
-        const data =await res.json();
-        if(data.success===true){
-            setWorks(data.data);
+        const data=await axios.get("/api/syllebus");
+        
+        if(data.data.success===true){
+            setWorks(data.data.data);
         }else{
             console.log(data)
         }
