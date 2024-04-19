@@ -10,7 +10,7 @@ type Work ={
     createdAt:Date,
   }
     async function getDailyWork() {
-        const res = await fetch("http://localhost:3000/api/daily-work",{cache:"reload"});
+        const res = await fetch("/api/daily-work",{cache:"reload"});
         const data =await res.json();
         return data.data;
       }

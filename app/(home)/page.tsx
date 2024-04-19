@@ -28,7 +28,7 @@ const [loading, setLoading]=useState(false)
 
   async function getUser(){
     setLoading(true)
-    const res = await fetch("http://localhost:3000/api/users");
+    const res = await fetch("/api/users");
     const data =await res.json();
        if(data.success){
         setUser(data.data);
